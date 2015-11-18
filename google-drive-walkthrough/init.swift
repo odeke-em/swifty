@@ -49,13 +49,13 @@ enum OperationError: ErrorType {
 }
 
 class Operation {
-    var launchPath: String?
+    let launchPath: String
     init(launchPath: String) {
         self.launchPath = launchPath
     }
 
     func run(argv: [String]) -> OperationError? {
-        return shellOut(self.launchPath!, argv: argv)
+        return shellOut(self.launchPath, argv: argv)
     }
 }
 
@@ -69,6 +69,7 @@ func shellOut(launchPath: String, argv: [String]) -> OperationError? {
     task.standardError = pipe
 
     task.launch()
+    task.waitUntilExit()
     
     let data = pipe.fileHandleForReading.readDataToEndOfFile()
     let output: String = String(NSString(data: data, encoding: NSUTF8StringEncoding))
