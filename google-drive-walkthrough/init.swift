@@ -3,21 +3,21 @@
 import Foundation
 import Swift
 
-var dependencies = [
+let dependencies = [
     "https://github.com/google/google-api-objectivec-client.git",
     "https://github.com/google/gtm-oauth2.git",
     "https://github.com/google/gtm-session-fetcher.git",
     "https://github.com/stig/json-framework.git -b v2.3",
 ]
 
-var copies = [
+let copies = [
     "gtm-oauth2/Source google-api-objectivec-client/Source/OAuth2",
     "json-framework/Classes google-api-objectivec-client/Source/JSON",
 ]
 
 func main() {
-    let cpOp = Operation(launchPath: "/usr/bin/cp")
-    let gitOp = Operation(launchPath: "/usr/bin/git")
+    var cpOp = Operation(launchPath: "/usr/bin/cp")
+    var gitOp = Operation(launchPath: "/usr/bin/git")
 
     for dep in dependencies {
         let fatal = opRunner(gitOp, argv: "clone", dep)
@@ -35,7 +35,7 @@ func main() {
 }
 
 func opRunner(op: Operation, argv: String...) -> Bool {
-    let err = op.run(argv)
+    var err = op.run(argv)
     if err == nil {
         return false
     }
