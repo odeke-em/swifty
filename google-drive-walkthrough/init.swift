@@ -72,7 +72,7 @@ func shellOut(launchPath: String, argv: [String]) -> OperationError? {
     task.waitUntilExit()
     
     let data = pipe.fileHandleForReading.readDataToEndOfFile()
-    let output: String = String(NSString(data: data, encoding: NSUTF8StringEncoding))
+    let output: String = String(data: data, encoding: NSUTF8StringEncoding)
     
     if output.characters.count < 1 {
         return nil
